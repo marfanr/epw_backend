@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  email String @unique
+
+  namalengkap String?
+
+  password String
+
+  Verifikasi Verifikasi?
+}
+
+model Verifikasi {
+  id Int @id @default(autoincrement())
+
+  user_id Int @unique
+
+  user User @relation(fields: [user_id], references: [id])
+
+  status Boolean
+}
+
+model Injection {
+  id Int @id @default(autoincrement())
+
+  nama_tim String @unique
+
+  asal_sekolah String
+
+  type Int
+
+  nama_pembimbing String
+
+  no_telp_pembimbing String
+
+  link_berkas_bukti String
+
+  link_berkas_abstrak String
+
+
+  team_type           TeamType              @relation(fields: [type], references: [id])
+  AnggotaTimInjection AnggotaTimInjection[]  
+}
+
+model AnggotaTimInjection {
+  id Int @id @default(autoincrement())
+
+  nama_lengkap String
+
+  id_team Int
+
+  team Injection @relation(fields: [id_team], references: [id])    
+
+  email String
+
+  nim String
+
+  nomor_telepon String
+}
+
+
+model TeamType {
+  id Int @id @default(autoincrement())
+
+  name      String      @unique
+  Injection Injection[]
+}
