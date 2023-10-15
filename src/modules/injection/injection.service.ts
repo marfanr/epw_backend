@@ -10,8 +10,7 @@ export class InjectionService {
   constructor(private prisma: PrismaService) {}
   async register_team(body: InjectionDTO) {
     let body_ = [];
-    let anggota: { anggota: AnggotaInjectionDTO[] } = JSON.parse(body.anggota);
-    console.log(anggota);
+    let anggota: { anggota: AnggotaInjectionDTO[] } = JSON.parse(body.anggota);    
 
     for (let i = 0; i < anggota.anggota.length; i++) {
       body_.push({
